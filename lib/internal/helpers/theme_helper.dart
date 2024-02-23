@@ -6,4 +6,7 @@ abstract class ThemeColor {
   static Color hintTextColor = Color(0xffD2D1D5);
 
   static Color priceColor = Color(0xff75DB1B);
+
+    static Color descriptionColor = Color(0xffACABAD);
+
 }

@@ -1,4 +1,3 @@
-
 import 'package:bloc/bloc.dart';
 import 'package:eco_market/features/products/product/data/model/fruit_model.dart';
 import 'package:eco_market/features/products/product/domain/use_cases/poduct_use_case.dart';
@@ -17,7 +16,10 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
       emit(ProductLoadingState());
       try {
         final List<AllProductModel> allProductModelList =
-            await productUseCase.getAllProduct();
+            await productUseCase.getAllProduct(
+          searchText: event.searchText,
+          categoryName: event.categoryName,
+        );
 
         emit(ProductLoadedState(allProductModelList: allProductModelList));
       } catch (e) {

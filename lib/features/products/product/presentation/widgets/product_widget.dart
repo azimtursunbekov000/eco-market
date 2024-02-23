@@ -1,42 +1,60 @@
-import 'package:eco_market/features/products/product/data/model/fruit_model.dart';
 import 'package:eco_market/features/products/product/data/repositories/product_repositories_impl.dart';
 import 'package:eco_market/features/products/product/domain/use_cases/poduct_use_case.dart';
 import 'package:eco_market/features/products/product/presentation/logic/bloc/product_bloc.dart';
-import 'package:eco_market/features/products/product/presentation/screens/product_screen.dart';
 import 'package:eco_market/features/products/product/presentation/widgets/icon_button_widget.dart';
 import 'package:eco_market/internal/helpers/text_helper.dart';
 import 'package:flutter/material.dart';
+import 'package:eco_market/features/products/product/data/model/fruit_model.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class CommonFruitsWidget extends StatefulWidget {
-  const CommonFruitsWidget({
+class CommonAllProductWidget extends StatefulWidget {
+  final String? categoryName;
+
+  const CommonAllProductWidget({
     Key? key,
+    required this.categoryName,
   }) : super(key: key);
 
   @override
-  State<CommonFruitsWidget> createState() => _CommonFruitsWidgetState();
+  State<CommonAllProductWidget> createState() => _CommonAllProductWidgetState();
 }
 
-class _CommonFruitsWidgetState extends State<CommonFruitsWidget> {
-  final ProductBloc productBloc = ProductBloc(
-    ProductUseCase(
-      productRepository: ProductRepositoryImpl(),
-    ),
-  );
+class _CommonAllProductWidgetState extends State<CommonAllProductWidget>
+    with AutomaticKeepAliveClientMixin {
+  @override
+  bool get wantKeepAlive => true;
+
+  late final ProductBloc productBloc;
 
   @override
   void initState() {
-    productBloc.add(GetAllProductEvent());
+    print('initState');
+
     super.initState();
+    productBloc = ProductBloc(
+      ProductUseCase(
+        productRepository: ProductRepositoryImpl(),
+      ),
+    );
+
+    productBloc.add(GetAllProductEvent(categoryName: widget.categoryName));
   }
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return BlocConsumer<ProductBloc, ProductState>(
       bloc: productBloc,
       listener: (context, state) {},
       builder: (context, state) {
+        if (state is ProductLoadingState) {
+          return Center(
+            child: CircularProgressIndicator(
+              color: Colors.black,
+            ),
+          );
+        }
         if (state is ProductLoadedState) {
           return ListView.separated(
             itemCount: (state.allProductModelList.length / 2).ceil(),
@@ -50,13 +68,13 @@ class _CommonFruitsWidgetState extends State<CommonFruitsWidget> {
                       state.allProductModelList[firstIndex],
                     ),
                   ),
-                  SizedBox(width: 10.w), // Промежуток между контейнерами
+                  SizedBox(width: 10.w),
                   Expanded(
                     child: secondIndex < state.allProductModelList.length
                         ? buildProductContainer(
                             state.allProductModelList[secondIndex],
                           )
-                        : SizedBox(), // В случае, если второго элемента нет
+                        : SizedBox(),
                   ),
                 ],
               );
@@ -73,11 +91,76 @@ class _CommonFruitsWidgetState extends State<CommonFruitsWidget> {
   Widget buildProductContainer(AllProductModel productModel) {
     return InkWell(
       onTap: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => ProductScreen(),
+        showModalBottomSheet(
+          showDragHandle: true,
+          isScrollControlled: true,
+          constraints: BoxConstraints(
+            maxHeight: MediaQuery.of(context).size.height * 0.9,
           ),
+          context: context,
+          builder: (BuildContext context) {
+            return Container(
+              margin: EdgeInsets.symmetric(
+                // vertical: 10.h,
+                horizontal: 15.w,
+              ),
+              child: Column(
+                children: [
+                  Flexible(
+                    child: SingleChildScrollView(
+                      physics: ClampingScrollPhysics(),
+                      child: Container(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisSize: MainAxisSize.min,
+                          children: <Widget>[
+                            Container(
+                              height: 208,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(15.r),
+                                image: DecorationImage(
+                                  image: NetworkImage(productModel.image ?? ''),
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                            ),
+                            Text(
+                              productModel.title ?? '',
+                              style: TextHelpers.titleS24W700,
+                            ),
+                            Text(
+                              "${(productModel.price != null && productModel.price!.contains('.')) ? productModel.price?.split('.')[0] : productModel.price}с",
+                              style: TextHelpers.price,
+                            ),
+                            Text(
+                              productModel.description ?? '',
+                              style: TextHelpers.description,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+
+                  // -------
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 32, top: 20),
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        minimumSize: Size(343.w, 54.h),
+                        backgroundColor: Color(0xff75DB1B),
+                      ),
+                      onPressed: () {},
+                      child: Text(
+                        "Добавить",
+                        style: TextHelpers.nameProductCategory,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            );
+          },
         );
       },
       child: Container(
@@ -133,7 +216,7 @@ class _CommonFruitsWidgetState extends State<CommonFruitsWidget> {
                     onPressed: () {},
                     icon: Icons.remove,
                   ),
-                  Text("1"),
+                  Text(""),
                   IconButtonWidget(
                     onPressed: () {},
                     icon: Icons.add,

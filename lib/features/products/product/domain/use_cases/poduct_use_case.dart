@@ -6,7 +6,13 @@ class ProductUseCase {
 
   ProductUseCase({required this.productRepository});
 
-  Future<List<AllProductModel>> getAllProduct() async {
-    return await productRepository.getAllProduct();
+  Future<List<AllProductModel>> getAllProduct({
+    String? categoryName,
+    String? searchText,
+  }) async {
+    return await productRepository.getAllProduct(
+      categoryName: categoryName,
+      searchText: searchText,
+    );
   }
 }

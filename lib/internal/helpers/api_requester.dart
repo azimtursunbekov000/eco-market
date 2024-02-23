@@ -2,8 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:eco_market/internal/helpers/catch_exception.dart';
 
 class ApiRequester {
-  final String url =
-      "https://www.challenge-neobook.org/ecobak/";
+  final String url = "https://www.challenge-neobook.org/ecobak/";
 
   Future<Dio> initDio() async {
     return Dio(
@@ -29,11 +28,11 @@ class ApiRequester {
     }
   }
 
-  Future<Response> toPost(String url) async {
+  Future<Response> toPost(String url, {Map<String, dynamic>? data}) async {
     Dio dio = await initDio();
 
     try {
-      return dio.post(url);
+      return dio.post(url, data: data);
     } catch (e) {
       throw CatchException.convertException(e);
     }

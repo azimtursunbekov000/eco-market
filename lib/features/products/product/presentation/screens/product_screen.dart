@@ -1,4 +1,4 @@
-import 'package:eco_market/features/products/product/presentation/widgets/fruits_widget.dart';
+import 'package:eco_market/features/products/product/presentation/widgets/product_widget.dart';
 import 'package:eco_market/features/products/product/presentation/widgets/search_widget.dart';
 import 'package:eco_market/internal/helpers/text_helper.dart';
 import 'package:flutter/cupertino.dart';
@@ -27,98 +27,54 @@ class _ProductScreenState extends State<ProductScreen> {
       "Молочные продукты"
     ];
 
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          "Продукты",
-          style: TextHelpers.nameProduct,
+    return DefaultTabController(
+      length: 7,
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text(
+            "Продукты",
+            style: TextHelpers.nameProduct,
+          ),
         ),
-      ),
-      body: Padding(
-        padding: EdgeInsets.symmetric(
-          horizontal: 10.w,
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            SearchWidget(hintText: 'Быстрый поиск'),
-            SizedBox(height: 20.h),
-            SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: Padding(
-                padding: EdgeInsets.only(bottom: 10.h),
-                child: Row(
+        body: Padding(
+          padding: EdgeInsets.symmetric(
+            horizontal: 10.w,
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              SearchWidget(hintText: 'Быстрый поиск'),
+              SizedBox(height: 20.h),
+              TabBar(
+                tabAlignment: TabAlignment.start,
+                isScrollable: true,
+                tabs: [
+                  Tab(text: 'Все'),
+                  Tab(text: 'Фрукты'),
+                  Tab(text: 'Сухофрукты'),
+                  Tab(text: 'Овощи'),
+                  Tab(text: 'Зелень'),
+                  Tab(text: 'Чай кофе'),
+                  Tab(text: 'Молочные продукты'),
+                ],
+              ),
+              const Expanded(
+                child: TabBarView(
                   children: [
-                    CupertinoSegmentedControl<int>(
-                      borderColor: Colors.grey,
-                      selectedColor: Colors.green,
-                      unselectedColor: Colors.white,
-
-                      children: {
-                        for (int i = 0; i < tabTitles.length; i++)
-                          i: Padding(
-                            padding:
-                                const EdgeInsets.symmetric(horizontal: 8.0),
-                            child: Text(
-                              tabTitles[i],
-                              style: TextStyle(
-                                color: selectedSegmentIndex == i
-                                    ? Colors.white
-                                    : Colors.black,
-                              ),
-                            ),
-                          ),
-                      },
-                      onValueChanged: (index) {
-                        setState(() {
-                          selectedSegmentIndex = index!;
-                        });
-                      },
-                      groupValue: selectedSegmentIndex,
-                    ),
+                    CommonAllProductWidget(categoryName: null),
+                    CommonAllProductWidget(categoryName: 'Фрукты'),
+                    CommonAllProductWidget(categoryName: 'Сухофрукты'),
+                    CommonAllProductWidget(categoryName: "Овощи"),
+                    CommonAllProductWidget(categoryName: "Зелень"),
+                    CommonAllProductWidget(categoryName: "Чай кофе"),
+                    CommonAllProductWidget(categoryName: "Молочные продукты"),
                   ],
                 ),
               ),
-            ),
-            SizedBox(height: 20.h),
-            Expanded(
-              child: getContentForIndex(selectedSegmentIndex),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
-  }
-
-  Widget getContentForIndex(int index) {
-    switch (index) {
-      case 0:
-        return CommonFruitsWidget();
-
-      case 1:
-        return CommonFruitsWidget();
-      case 2:
-        return Center(
-          child: Text('Calls Page'),
-        );
-      case 3:
-        return Center(
-          child: Text('Settings Page'),
-        );
-      case 4:
-        return Center(
-          child: Text('Settings Page'),
-        );
-      case 5:
-        return Center(
-          child: Text('Settings Page'),
-        );
-      case 6:
-        return Center(
-          child: Text('Settings Page'),
-        );
-      default:
-        return SizedBox();
-    }
   }
 }

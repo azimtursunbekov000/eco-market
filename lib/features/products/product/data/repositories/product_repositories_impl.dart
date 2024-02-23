@@ -10,9 +10,15 @@ class ProductRepositoryImpl implements ProductRepository {
   ApiRequester apiRequester = ApiRequester();
 
   @override
-  Future<List<AllProductModel>> getAllProduct() async {
+  Future<List<AllProductModel>> getAllProduct({
+    String? categoryName,
+    String? searchText,
+  }) async {
     try {
-      Response response = await apiRequester.toGet("product-list/");
+      Response response = await apiRequester.toGet("product-list/", params: {
+        'category_name': categoryName,
+        'search': searchText,
+      });
       log('getFruits response statusCode == ${response.statusCode}');
       log('getFruits response data == ${response.data}');
 

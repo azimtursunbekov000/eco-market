@@ -4,6 +4,8 @@ abstract class ProductRepository {
   /// RU: Получение фруктов
   ///
   /// EN: Getting all fruits
-  Future<List<AllProductModel>> getAllProduct();
-
+  Future<List<AllProductModel>> getAllProduct({
+    String? categoryName,
+    String? searchText,
+  });
 }

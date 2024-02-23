@@ -32,4 +32,11 @@ abstract class TextHelpers {
     fontWeight: FontWeight.w500,
     color: ThemeColor.priceColor,
   );
+
+
+  static TextStyle description = TextStyle(
+    fontSize: 16.sp,
+    fontWeight: FontWeight.w400,
+    color: ThemeColor.descriptionColor,
+  );
 }
