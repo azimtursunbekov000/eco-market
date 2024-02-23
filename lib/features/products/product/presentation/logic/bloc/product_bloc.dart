@@ -1,4 +1,3 @@
-import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:eco_market/features/products/product/data/model/fruit_model.dart';

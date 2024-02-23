@@ -1,7 +1,7 @@
 import 'package:eco_market/features/products/product/data/model/fruit_model.dart';
 import 'package:eco_market/features/products/product/data/repositories/product_repositories_impl.dart';
 import 'package:eco_market/features/products/product/domain/use_cases/poduct_use_case.dart';
-import 'package:eco_market/features/products/product/presentation/logic/product_bloc.dart';
+import 'package:eco_market/features/products/product/presentation/logic/bloc/product_bloc.dart';
 import 'package:eco_market/features/products/product/presentation/screens/product_screen.dart';
 import 'package:eco_market/features/products/product/presentation/widgets/icon_button_widget.dart';
 import 'package:eco_market/internal/helpers/text_helper.dart';
@@ -126,7 +126,6 @@ class _CommonFruitsWidgetState extends State<CommonFruitsWidget> {
                 "${(productModel.price != null && productModel.price!.contains('.')) ? productModel.price?.split('.')[0] : productModel.price}с",
                 style: TextHelpers.price,
               ),
-
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
