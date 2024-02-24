@@ -1,7 +1,6 @@
 import 'package:eco_market/features/products/product/presentation/widgets/product_widget.dart';
 import 'package:eco_market/features/products/product/presentation/widgets/search_widget.dart';
 import 'package:eco_market/internal/helpers/text_helper.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -43,9 +42,9 @@ class _ProductScreenState extends State<ProductScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              SearchWidget(hintText: 'Быстрый поиск'),
+              const SearchWidget(hintText: 'Быстрый поиск'),
               SizedBox(height: 20.h),
-              TabBar(
+              const TabBar(
                 tabAlignment: TabAlignment.start,
                 isScrollable: true,
                 tabs: [
