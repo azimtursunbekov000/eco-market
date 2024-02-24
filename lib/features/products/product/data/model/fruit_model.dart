@@ -37,4 +37,6 @@ class AllProductModel {
         "quantity": quantity,
         "price": price,
       };
+
+  removeItemFromCart(int index) {}
 }

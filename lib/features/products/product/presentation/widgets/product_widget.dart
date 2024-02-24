@@ -1,3 +1,4 @@
+import 'package:eco_market/features/basket/basket_screen.dart';
 import 'package:eco_market/features/products/product/data/repositories/product_repositories_impl.dart';
 import 'package:eco_market/features/products/product/domain/use_cases/poduct_use_case.dart';
 import 'package:eco_market/features/products/product/presentation/logic/bloc/product_bloc.dart';
@@ -20,6 +21,7 @@ class CommonAllProductWidget extends StatefulWidget {
 class _CommonAllProductWidgetState extends State<CommonAllProductWidget>
     with AutomaticKeepAliveClientMixin {
   late final ProductBloc productBloc;
+  int totalItemsInCart = 0;
 
   @override
   bool get wantKeepAlive => true;
@@ -51,52 +53,92 @@ class _CommonAllProductWidgetState extends State<CommonAllProductWidget>
           );
         }
         if (state is ProductLoadedState) {
-          return Stack(
-            children: [
-              ListView.separated(
-                itemCount: (state.allProductModelList.length / 2).ceil(),
-                itemBuilder: (context, index) {
-                  int firstIndex = index * 2;
-                  int secondIndex = firstIndex + 1;
-                  return Row(
-                    children: [
-                      Expanded(
-                        child: ProductBottomSheet(
-                          productModel: state.allProductModelList[firstIndex],
-                          quantity: 0,
-                          incrementQuantity: () {},
-                          decrementQuantity: () {},
+          return Scaffold(
+            floatingActionButton: FloatingActionButton(
+              heroTag: null,
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => BasketScreen()),
+                );
+              },
+              child: Stack(
+                children: [
+                  Icon(Icons.shopping_cart),
+                  Positioned(
+                    right: 0,
+                    child: Container(
+                      padding: EdgeInsets.all(2),
+                      decoration: BoxDecoration(
+                        color: Colors.red,
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      constraints: BoxConstraints(
+                        minWidth: 16,
+                        minHeight: 16,
+                      ),
+                      child: Text(
+                        '$totalItemsInCart',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 10,
                         ),
+                        textAlign: TextAlign.center,
                       ),
-                      SizedBox(width: 10),
-                      Expanded(
-                        child: secondIndex < state.allProductModelList.length
-                            ? ProductBottomSheet(
-                                productModel:
-                                    state.allProductModelList[secondIndex],
-                                quantity: 0,
-                                incrementQuantity: () {},
-                                decrementQuantity: () {},
-                              )
-                            : SizedBox(),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            body: ListView.separated(
+              itemCount: (state.allProductModelList.length / 2).ceil(),
+              itemBuilder: (context, index) {
+                int firstIndex = index * 2;
+                int secondIndex = firstIndex + 1;
+                return Row(
+                  children: [
+                    Expanded(
+                      child: ProductBottomSheet(
+                        productModel: state.allProductModelList[firstIndex],
+                        quantity: 0,
+                        incrementQuantity: () {
+                          setState(() {
+                            totalItemsInCart++; // Увеличиваем сумму товаров при нажатии на кнопку "+"
+                          });
+                        },
+                        decrementQuantity: () {
+                          setState(() {
+                            totalItemsInCart--;
+                          });
+                        },
                       ),
-                    ],
-                  );
-                },
-                separatorBuilder: (BuildContext context, int index) =>
-                    SizedBox(height: 10),
-              ),
-              Positioned(
-                bottom: 16.0,
-                right: 16.0,
-                child: FloatingActionButton(
-                  onPressed: () {
-                    
-                  },
-                  child: Icon(Icons.add),
-                ),
-              ),
-            ],
+                    ),
+                    SizedBox(width: 10),
+                    Expanded(
+                      child: secondIndex < state.allProductModelList.length
+                          ? ProductBottomSheet(
+                              productModel:
+                                  state.allProductModelList[secondIndex],
+                              quantity: 0,
+                              incrementQuantity: () {
+                                setState(() {
+                                  totalItemsInCart++; 
+                                });
+                              },
+                              decrementQuantity: () {
+                                setState(() {
+                                  totalItemsInCart--;
+                                });
+                              },
+                            )
+                          : SizedBox(),
+                    ),
+                  ],
+                );
+              },
+              separatorBuilder: (BuildContext context, int index) =>
+                  SizedBox(height: 10),
+            ),
           );
         }
         return SizedBox();

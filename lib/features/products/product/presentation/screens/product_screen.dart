@@ -5,14 +5,38 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ProductScreen extends StatefulWidget {
-  const ProductScreen({Key? key}) : super(key: key);
+  final int initialCategoryIndex;
+
+  const ProductScreen({
+    Key? key,
+    required this.initialCategoryIndex,
+  }) : super(key: key);
 
   @override
   _ProductScreenState createState() => _ProductScreenState();
 }
 
-class _ProductScreenState extends State<ProductScreen> {
-  int selectedSegmentIndex = 0;
+class _ProductScreenState extends State<ProductScreen>
+    with SingleTickerProviderStateMixin {
+  late TabController _tabController;
+
+  @override
+  void initState() {
+    super.initState();
+    _tabController = TabController(length: 7, vsync: this);
+    _tabController.addListener(_handleTabSelection);
+    _tabController.animateTo(widget.initialCategoryIndex);
+  }
+
+  void _handleTabSelection() {
+    setState(() {});
+  }
+
+  @override
+  void dispose() {
+    _tabController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +68,8 @@ class _ProductScreenState extends State<ProductScreen> {
             children: [
               const SearchWidget(hintText: 'Быстрый поиск'),
               SizedBox(height: 20.h),
-              const TabBar(
+              TabBar(
+                controller: _tabController,
                 tabAlignment: TabAlignment.start,
                 isScrollable: true,
                 tabs: [
@@ -57,8 +82,9 @@ class _ProductScreenState extends State<ProductScreen> {
                   Tab(text: 'Молочные продукты'),
                 ],
               ),
-              const Expanded(
+              Expanded(
                 child: TabBarView(
+                  controller: _tabController,
                   children: [
                     CommonAllProductWidget(categoryName: null),
                     CommonAllProductWidget(categoryName: 'Фрукты'),

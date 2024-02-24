@@ -26,7 +26,9 @@ class GridViewContentWidget extends StatelessWidget {
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => ProductScreen(),
+                builder: (context) => ProductScreen(
+                  initialCategoryIndex: index,
+                ),
               ),
             );
           },
