@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 
 class GridViewContentWidget extends StatelessWidget {
   final ProductCategoryLoadedState state;
+
   const GridViewContentWidget(
     this.state, {
     super.key,
@@ -27,7 +28,7 @@ class GridViewContentWidget extends StatelessWidget {
               context,
               MaterialPageRoute(
                 builder: (context) => ProductScreen(
-                  initialCategoryIndex: index,
+                  id: state.productCategoryList[index].id ?? 0,
                 ),
               ),
             );

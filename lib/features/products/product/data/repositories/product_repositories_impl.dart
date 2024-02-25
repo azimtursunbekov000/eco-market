@@ -19,6 +19,7 @@ class ProductRepositoryImpl implements ProductRepository {
         'category_name': categoryName,
         'search': searchText,
       });
+      log('product-list/ ${categoryName} ${searchText} ===');
       log('getFruits response statusCode == ${response.statusCode}');
       log('getFruits response data == ${response.data}');
 

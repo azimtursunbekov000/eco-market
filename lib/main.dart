@@ -1,6 +1,9 @@
+import 'package:eco_market/features/basket/data/model/cart_model.dart';
+import 'package:eco_market/features/basket/basket_screen.dart';
 import 'package:eco_market/internal/commons/bottom_nav_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:provider/provider.dart';
 
 void main() {
   runApp(const MyApp());
@@ -16,12 +19,12 @@ class MyApp extends StatelessWidget {
       minTextAdapt: true,
       splitScreenMode: true,
       builder: (_, child) {
-        return MaterialApp(
-          theme: ThemeData(
-            colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-            useMaterial3: true,
+        return ChangeNotifierProvider(
+          create: (context) => CartModel(),
+          child: MaterialApp(
+            debugShowCheckedModeBanner: false,
+            home: BottomNavBarScreen(),
           ),
-          home: BottomNavBarScreen(),
         );
       },
     );

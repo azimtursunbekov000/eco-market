@@ -21,7 +21,7 @@ class _BottomNavBarState extends State<BottomNavBarScreen> {
 
   List<Widget> screens = const [
     MainScreen(),
-    BasketScreen(),
+    CartPage(),
     HistoryScreen(),
     InfoScreen(),
   ];

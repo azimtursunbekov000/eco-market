@@ -5,11 +5,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ProductScreen extends StatefulWidget {
-  final int initialCategoryIndex;
+  final int id;
 
   const ProductScreen({
     Key? key,
-    required this.initialCategoryIndex,
+    required this.id,
   }) : super(key: key);
 
   @override
@@ -25,7 +25,7 @@ class _ProductScreenState extends State<ProductScreen>
     super.initState();
     _tabController = TabController(length: 7, vsync: this);
     _tabController.addListener(_handleTabSelection);
-    _tabController.animateTo(widget.initialCategoryIndex);
+    _tabController.animateTo(widget.id);
   }
 
   void _handleTabSelection() {

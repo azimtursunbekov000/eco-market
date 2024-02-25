@@ -59,7 +59,7 @@ class _CommonAllProductWidgetState extends State<CommonAllProductWidget>
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => BasketScreen()),
+                  MaterialPageRoute(builder: (context) => CartPage()),
                 );
               },
               child: Stack(
@@ -103,7 +103,7 @@ class _CommonAllProductWidgetState extends State<CommonAllProductWidget>
                         quantity: 0,
                         incrementQuantity: () {
                           setState(() {
-                            totalItemsInCart++; // Увеличиваем сумму товаров при нажатии на кнопку "+"
+                            totalItemsInCart++;
                           });
                         },
                         decrementQuantity: () {
@@ -122,7 +122,7 @@ class _CommonAllProductWidgetState extends State<CommonAllProductWidget>
                               quantity: 0,
                               incrementQuantity: () {
                                 setState(() {
-                                  totalItemsInCart++; 
+                                  totalItemsInCart++;
                                 });
                               },
                               decrementQuantity: () {

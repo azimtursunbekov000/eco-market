@@ -93,32 +93,10 @@ class _ProductBottomSheetState extends State<ProductBottomSheet> {
                       ),
                     ),
                   ),
-
-                  // -------
                   Padding(
                     padding: const EdgeInsets.only(bottom: 32, top: 20),
                     child: Column(
                       children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            IconButtonWidget(
-                              onPressed: () {
-                                decrementQuantity();
-                              },
-                              icon: Icons.remove,
-                            ),
-                            Text(
-                              quantity.toString(),
-                            ),
-                            IconButtonWidget(
-                              onPressed: () {
-                                incrementQuantity();
-                              },
-                              icon: Icons.add,
-                            ),
-                          ],
-                        ),
                         ElevatedButton(
                           style: ElevatedButton.styleFrom(
                             minimumSize: Size(343.w, 54.h),
@@ -126,7 +104,7 @@ class _ProductBottomSheetState extends State<ProductBottomSheet> {
                           ),
                           onPressed: () {},
                           child: Text(
-                            "Добавить",
+                            "Добавить $quantity шт ",
                             style: TextHelpers.nameProductCategory,
                           ),
                         ),
