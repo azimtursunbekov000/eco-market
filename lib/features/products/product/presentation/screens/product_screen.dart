@@ -54,6 +54,7 @@ class _ProductScreenState extends State<ProductScreen>
       length: 7,
       child: Scaffold(
         appBar: AppBar(
+          centerTitle: true,
           title: Text(
             "Продукты",
             style: TextHelpers.nameProduct,

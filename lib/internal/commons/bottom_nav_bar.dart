@@ -23,7 +23,7 @@ class _BottomNavBarState extends State<BottomNavBarScreen> {
     MainScreen(),
     CartPage(),
     HistoryScreen(),
-    InfoScreen(),
+    InfoScreen()
   ];
 
   @override

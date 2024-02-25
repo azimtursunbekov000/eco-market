@@ -33,6 +33,7 @@ class _MainScreenState extends State<MainScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        centerTitle: true,
         title: Text(
           "Эко Маркет",
           style: TextHelpers.titleS24W700,

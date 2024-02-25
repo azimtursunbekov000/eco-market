@@ -1,24 +1,30 @@
 import 'package:eco_market/internal/commons/common_elevated_btm.dart';
 import 'package:eco_market/internal/helpers/text_helper.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class InfoScreen extends StatelessWidget {
-  const InfoScreen({Key? key});
+class InfoScreen extends StatefulWidget {
+  const InfoScreen({Key? key}) : super(key: key);
 
+  @override
+  State<InfoScreen> createState() => _InfoScreenState();
+}
+
+class _InfoScreenState extends State<InfoScreen> {
+  final Uri whatsapp = Uri.parse("https://wa.me/+996550567779");
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: ListView(
-        physics: ScrollPhysics(),
+        physics: const ScrollPhysics(),
         padding: EdgeInsets.zero,
         children: [
           Container(
             alignment: Alignment.topCenter,
             height: 275.h,
             width: double.infinity,
-            decoration: BoxDecoration(
-              color: Colors.red,
+            decoration: const BoxDecoration(
               image: DecorationImage(
                 image: AssetImage('assets/images/info_image.png'),
                 fit: BoxFit.cover,
@@ -50,7 +56,9 @@ class InfoScreen extends StatelessWidget {
                   ),
                 ),
                 CommonElevatedBtn(
-                  onPressed: () {},
+                  onPressed: () async {
+                    FlutterPhoneDirectCaller.callNumber("+996999567779");
+                  },
                   imagePath: 'assets/images/phone.png',
                   text: 'Позвонить',
                 ),
@@ -65,7 +73,7 @@ class InfoScreen extends StatelessWidget {
                   onPressed: () {},
                   imagePath: 'assets/images/instagram.png',
                   text: 'Instagram',
-                )
+                ),
               ],
             ),
           ),

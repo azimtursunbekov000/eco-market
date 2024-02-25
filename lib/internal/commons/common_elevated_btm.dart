@@ -6,7 +6,7 @@ class CommonElevatedBtn extends StatelessWidget {
     Key? key,
     required this.onPressed,
     required this.imagePath, // измененный параметр
-    required this.text,
+    required this.text, 
   }) : super(key: key);
 
   final VoidCallback onPressed;
