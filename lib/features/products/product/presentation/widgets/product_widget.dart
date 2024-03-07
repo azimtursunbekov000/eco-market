@@ -1,4 +1,4 @@
-import 'package:eco_market/features/basket/basket_screen.dart';
+import 'package:eco_market/features/basket/presentation/basket_screen.dart';
 import 'package:eco_market/features/products/product/data/repositories/product_repositories_impl.dart';
 import 'package:eco_market/features/products/product/domain/use_cases/poduct_use_case.dart';
 import 'package:eco_market/features/products/product/presentation/logic/bloc/product_bloc.dart';
@@ -40,7 +40,6 @@ class _CommonAllProductWidgetState extends State<CommonAllProductWidget>
 
   @override
   Widget build(BuildContext context) {
-    super.build(context);
     return BlocConsumer<ProductBloc, ProductState>(
       bloc: productBloc,
       listener: (context, state) {},
@@ -98,7 +97,7 @@ class _CommonAllProductWidgetState extends State<CommonAllProductWidget>
                 return Row(
                   children: [
                     Expanded(
-                      child: ProductBottomSheet(
+                      child: AllProduct(
                         productModel: state.allProductModelList[firstIndex],
                         quantity: 0,
                         incrementQuantity: () {
@@ -116,7 +115,7 @@ class _CommonAllProductWidgetState extends State<CommonAllProductWidget>
                     SizedBox(width: 10),
                     Expanded(
                       child: secondIndex < state.allProductModelList.length
-                          ? ProductBottomSheet(
+                          ? AllProduct(
                               productModel:
                                   state.allProductModelList[secondIndex],
                               quantity: 0,

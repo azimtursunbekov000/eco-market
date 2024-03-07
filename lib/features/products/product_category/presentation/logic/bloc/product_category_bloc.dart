@@ -15,6 +15,7 @@ class ProductCategoryBloc
       emit(ProductCategoryLoadingState());
 
       try {
+        // throw 'error';
         final List<ProductCategoryModel> productCategoryList =
             await productCategoryUseCase.getProductCategory();
 

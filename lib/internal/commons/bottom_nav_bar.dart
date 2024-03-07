@@ -1,5 +1,5 @@
 import 'package:eco_market/features/Info/info_screen.dart';
-import 'package:eco_market/features/basket/basket_screen.dart';
+import 'package:eco_market/features/basket/presentation/basket_screen.dart';
 import 'package:eco_market/features/history/history_screen.dart';
 import 'package:eco_market/features/products/product_category/presentation/screens/product_category_screen.dart';
 import 'package:flutter/material.dart';

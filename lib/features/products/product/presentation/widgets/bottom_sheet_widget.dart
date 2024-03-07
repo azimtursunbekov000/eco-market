@@ -4,13 +4,13 @@ import 'package:eco_market/internal/helpers/text_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class ProductBottomSheet extends StatefulWidget {
+class AllProduct extends StatefulWidget {
   final AllProductModel productModel;
   final int quantity;
   final VoidCallback incrementQuantity;
   final VoidCallback decrementQuantity;
 
-  const ProductBottomSheet({
+  const AllProduct({
     Key? key,
     required this.productModel,
     required this.quantity,
@@ -19,10 +19,10 @@ class ProductBottomSheet extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _ProductBottomSheetState createState() => _ProductBottomSheetState();
+  _AllProductState createState() => _AllProductState();
 }
 
-class _ProductBottomSheetState extends State<ProductBottomSheet> {
+class _AllProductState extends State<AllProduct> {
   int quantity = 0;
 
   void incrementQuantity() {

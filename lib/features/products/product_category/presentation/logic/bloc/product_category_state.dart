@@ -3,7 +3,7 @@ part of 'product_category_bloc.dart';
 @immutable
 sealed class ProductCategoryState {}
 
-final class ProductCategoryInitialState extends ProductCategoryState {}
+final class ProductCategoryInitialState implements ProductCategoryState {}
 
 final class ProductCategoryLoadingState extends ProductCategoryState {}
 

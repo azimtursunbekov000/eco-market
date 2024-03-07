@@ -56,7 +56,7 @@ class _InfoScreenState extends State<InfoScreen> {
                   ),
                 ),
                 CommonElevatedBtn(
-                  onPressed: () async {
+                  onPressed: ()  {
                     FlutterPhoneDirectCaller.callNumber("+996999567779");
                   },
                   imagePath: 'assets/images/phone.png',
